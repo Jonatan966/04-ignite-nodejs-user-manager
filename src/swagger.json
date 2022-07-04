@@ -1,0 +1,286 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "User Manager API",
+    "description": "API to manage Users",
+    "version": "0.1.0",
+    "contact": {
+      "email": "jonatanfrederico@gmail.com"
+    }
+  },
+  "paths": {
+    "/users": {
+      "get": {
+        "tags": ["User"],
+        "summary": "Returns a list of users",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A JSON array of Users",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "example": "8815ee6b-8136-4f06-949a-f3ac3aab906f"
+                      },
+                      "name": {
+                        "type": "string",
+                        "example": "Joao das couves"
+                      },
+                      "admin": {
+                        "type": "boolean",
+                        "example": true
+                      },
+                      "email": {
+                        "type": "string",
+                        "example": "joao@dascouves.com"
+                      },
+                      "created_at": {
+                        "type": "string",
+                        "example": "2022-07-03T21:45:30.507Z"
+                      },
+                      "updated_at": {
+                        "type": "string",
+                        "example": "2022-07-03T21:45:30.507Z"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "User not authorized OR User not exists"
+          }
+        }
+      },
+      "post": {
+        "tags": ["User"],
+        "summary": "Create a user",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "Joao das couves"
+                  },
+                  "email": {
+                    "type": "string",
+                    "example": "joao@dascouves.com"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "example": "8815ee6b-8136-4f06-949a-f3ac3aab906f"
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "Joao das couves"
+                    },
+                    "admin": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "email": {
+                      "type": "string",
+                      "example": "joao@dascouves.com"
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "example": "2022-07-03T21:45:30.507Z"
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "example": "2022-07-03T21:45:30.507Z"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "User already exists",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "User already exists"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{user_id}": {
+      "get": {
+        "tags": ["User"],
+        "summary": "Show user",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "description": "User ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User object",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "example": "8815ee6b-8136-4f06-949a-f3ac3aab906f"
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "Joao das couves"
+                    },
+                    "admin": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "email": {
+                      "type": "string",
+                      "example": "joao@dascouves.com"
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "example": "2022-07-03T21:45:30.507Z"
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "example": "2022-07-03T21:45:30.507Z"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not exists error object",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "User not exists"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{user_id}/admin": {
+      "patch": {
+        "tags": ["User"],
+        "summary": "Turn user as admin",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "description": "User ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User object",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "example": "8815ee6b-8136-4f06-949a-f3ac3aab906f"
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "Joao das couves"
+                    },
+                    "admin": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "email": {
+                      "type": "string",
+                      "example": "joao@dascouves.com"
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "example": "2022-07-03T21:45:30.507Z"
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "example": "2022-07-03T21:45:30.507Z"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not exists error object",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "User not exists"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
